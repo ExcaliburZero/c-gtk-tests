@@ -30,3 +30,6 @@
 
 # Debug files
 *.dSYM/
+
+# Specific compiled executable files
+hello_world
