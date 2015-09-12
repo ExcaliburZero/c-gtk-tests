@@ -16,7 +16,8 @@
 // Function declarations
 int main(int argc, char **argv);
 static void activate(GtkApplication *app, gpointer user_data);
-void f_to_c(GtkWidget *temp_entry, GtkWidget *output_temp_label);
+void f_to_c(GtkApplication *app, gpointer user_data);
+//void f_to_c(GtkWidget *temp_entry, GtkWidget *output_temp_label);
 
 // Main function
 int main(int argc, char **argv) {
@@ -146,7 +147,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
 }
 
 // Function to convert the entered temperature from Farenheit to Celcius and display the output
-void f_to_c(GtkWidget *temp_entry, GtkWidget *output_temp_label) {
+void f_to_c(GtkApplication *app, gpointer user_data) {
     gdouble entered_temp;   // The temperature that the user entered
     gdouble celcius_temp;   // The temperature converted to Celcius
 
