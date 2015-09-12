@@ -16,6 +16,7 @@
 // Function declarations
 int main(int argc, char **argv);
 static void activate(GtkApplication *app, gpointer user_data);
+void f_to_c(GtkWidget *temp_entry, GtkWidget *output_temp_label);
 
 // Main function
 int main(int argc, char **argv) {
@@ -43,6 +44,10 @@ int main(int argc, char **argv) {
 
 // Function to activate the program and create the main window
 static void activate(GtkApplication *app, gpointer user_data) {
+    /*
+        Declare the widgets used in application
+    */
+
     // Windows
     GtkWidget *window;	// The main window of the application
 
@@ -114,6 +119,43 @@ static void activate(GtkApplication *app, gpointer user_data) {
     // Add the entry temp_entry to the grid
     gtk_grid_attach(GTK_GRID(main_grid), temp_entry, 1, 0, 1, 1);
 
-    // Show the main window
+    /*
+        Create the buttons
+    */
+
+    // Create the button that converts F to C and store it in f_to_c_button
+    f_to_c_button = gtk_button_new_with_label("F to C");
+
+    // Create the button that converts C to F and store it in c_to_f_button
+    c_to_f_button = gtk_button_new_with_label("C to F");
+
+    // Add the button f_to_c_button to the grid
+    gtk_grid_attach(GTK_GRID(main_grid), f_to_c_button, 0, 1, 1, 1);
+
+    // Add the button c_to_f_button to the grid
+    gtk_grid_attach(GTK_GRID(main_grid), c_to_f_button, 1, 1, 1, 1);
+
+    // Set the function to be run when the f_to_c_button is clicked
+    g_signal_connect(f_to_c_button, "clicked", G_CALLBACK(f_to_c), NULL);
+
+    /*
+        Show the main window
+    */
+
     gtk_widget_show_all(window);
+}
+
+// Function to convert the entered temperature from Farenheit to Celcius and display the output
+void f_to_c(GtkWidget *temp_entry, GtkWidget *output_temp_label) {
+    gdouble entered_temp;   // The temperature that the user entered
+    gdouble celcius_temp;   // The temperature converted to Celcius
+
+    // Get the user entered temperature from the entry
+    entered_temp = g_ascii_strtod(gtk_entry_get_text(GTK_ENTRY(temp_entry)), NULL);
+
+    // Calculate the entered temperature in Celcius
+    celcius_temp = (entered_temp - 32.0) * (5.0 / 9.0);
+
+    // Output the temperature in Celcius
+    g_print("%G", celcius_temp);
 }
